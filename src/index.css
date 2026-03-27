@@ -1,0 +1,205 @@
+/* ============================================================
+   KRAFTORY BIERGARTEN — Global Styles
+   Inspired by Radisson Blu's clean, premium layout system
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Brand Palette */
+  --forest:       #0d1f0d;
+  --pine:         #183318;
+  --moss:         #2a5230;
+  --leaf:         #3d6b45;
+  --amber:        #c8780a;
+  --gold:         #e8a020;
+  --gold-light:   #f5c15a;
+
+  /* Neutrals (Radisson-style clean backgrounds) */
+  --white:        #ffffff;
+  --off-white:    #f8f6f2;
+  --light-gray:   #f2f0ec;
+  --border:       #e5e1d8;
+  --muted-text:   #6b6860;
+  --body-text:    #2d2b27;
+
+  /* Typography */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+
+  /* Spacing */
+  --container:    1280px;
+  --section-pad:  80px;
+  --radius:       2px;
+
+  /* Transitions */
+  --ease:         cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--body-text);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; font-family: inherit; }
+
+/* ---- SCROLLBAR ---- */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--light-gray); }
+::-webkit-scrollbar-thumb { background: var(--amber); border-radius: 3px; }
+
+/* ---- CONTAINER ---- */
+.container { max-width: var(--container); margin: 0 auto; padding: 0 40px; }
+@media (max-width: 768px) { .container { padding: 0 20px; } }
+
+/* ---- BUTTONS ---- */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.78rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.75rem 1.8rem;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s var(--ease), color 0.25s, transform 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
+}
+.btn:hover { transform: translateY(-1px); }
+
+.btn-primary {
+  background: var(--moss);
+  color: var(--white);
+  box-shadow: 0 2px 8px rgba(42,82,48,0.25);
+}
+.btn-primary:hover { background: var(--leaf); box-shadow: 0 4px 16px rgba(42,82,48,0.35); }
+
+.btn-amber {
+  background: var(--amber);
+  color: var(--white);
+  box-shadow: 0 2px 8px rgba(200,120,10,0.25);
+}
+.btn-amber:hover { background: var(--gold); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--moss);
+  border: 1.5px solid var(--moss);
+}
+.btn-outline:hover { background: var(--moss); color: var(--white); }
+
+.btn-outline-white {
+  background: transparent;
+  color: var(--white);
+  border: 1.5px solid rgba(255,255,255,0.7);
+}
+.btn-outline-white:hover { background: rgba(255,255,255,0.12); }
+
+.btn-sm { font-size: 0.72rem; padding: 0.55rem 1.2rem; }
+.btn-lg { font-size: 0.85rem; padding: 1rem 2.4rem; }
+
+/* ---- SECTION LABEL ---- */
+.section-label {
+  font-family: var(--font-body);
+  font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--amber);
+  display: flex; align-items: center; gap: 0.7rem;
+  margin-bottom: 0.75rem;
+}
+.section-label::before {
+  content: ''; display: block;
+  width: 28px; height: 1.5px; background: var(--amber);
+}
+
+/* ---- SECTION TITLE ---- */
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--forest);
+  margin-bottom: 1.2rem;
+}
+.section-title em { font-style: italic; color: var(--moss); }
+.section-title.light { color: var(--white); }
+.section-title.light em { color: var(--gold-light); }
+
+.section-subtitle {
+  font-size: 1rem; font-weight: 300;
+  color: var(--muted-text); line-height: 1.75;
+  max-width: 580px;
+}
+
+/* ---- DIVIDER ---- */
+.divider {
+  width: 48px; height: 2px;
+  background: var(--amber);
+  margin: 1.2rem 0;
+}
+
+/* ---- BADGE ---- */
+.badge {
+  display: inline-block;
+  font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.3rem 0.75rem;
+  border-radius: 20px;
+  background: rgba(200,120,10,0.1);
+  color: var(--amber);
+  border: 1px solid rgba(200,120,10,0.25);
+}
+
+/* ---- REVEAL ANIMATION ---- */
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
+}
+.reveal.in-view { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ---- SECTION BACKGROUNDS ---- */
+.bg-white { background: var(--white); }
+.bg-light { background: var(--off-white); }
+.bg-forest { background: var(--forest); }
+.bg-pine { background: var(--pine); }
+.bg-moss { background: var(--moss); }
+
+/* ---- TABLE STYLES ---- */
+.data-table { width: 100%; border-collapse: collapse; }
+.data-table th {
+  font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted-text);
+  padding: 0.75rem 1.25rem;
+  border-bottom: 2px solid var(--border);
+  text-align: left;
+}
+.data-table td {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: var(--off-white); }
+
+/* ---- RESPONSIVE HELPERS ---- */
+@media (max-width: 768px) {
+  :root { --section-pad: 56px; }
+  .hide-mobile { display: none !important; }
+}
+@media (min-width: 769px) {
+  .hide-desktop { display: none !important; }
+}
