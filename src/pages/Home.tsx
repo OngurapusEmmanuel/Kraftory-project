@@ -3,9 +3,16 @@ import Hero from '../components/Hero'
 import InfoStrip from '../components/InfoStrip'
 import SectionHeader from '../components/SectionHeader'
 import salmon from '../assets/salmon.jpg'
-import tiramisu from '../assets/tiramisu.jpg'
-import taps from '../assets/TAPS.jpg'
-import beer from '../assets/beer.avif'
+import padelarea from '../assets/padel area.webp'
+import taps from '../assets/taps.webp'
+import entry from '../assets/entry.webp'
+import schnitzel from '../assets/schnitzel.jpg'
+import magarita from '../assets/magarita.jpg'
+import screen from '../assets/ambience1.webp'
+import game from '../assets/games1.webp'
+import outdoor from '../assets/outdoor.webp'
+import maingarden from '../assets/main garden.webp'
+import cappuccino from '../assets/cappuccino.webp'
 import conference from '../assets/conference.jpg'
 import padelCourts from '../assets/padel/courts.jpg'
 import padelCoach from '../assets/padel/coach.jpg'
@@ -33,35 +40,28 @@ const MENU_ITEMS: Record<string, { name: string; desc: string; price: string; ta
   'Starters': [
     { name: 'Bavarian Pretzel Board', desc: 'Soft pretzels, stone-ground mustard, beer cheese fondue, pickled jalapeños & house-cured meats', price: 'KES 1,800', tag: "Chef's Pick" },
     { name: 'Burrata & Heirloom Tomato', desc: 'Creamy burrata, roasted cherry tomatoes, aged balsamic, basil oil, sourdough crostini', price: 'KES 1,200', tag: 'Vegetarian' },
-    { name: 'Beer-Battered Calamari', desc: 'Crispy rings in pale ale batter, sriracha aioli, lemon wedges', price: 'KES 1,400' },
-    { name: 'Crispy Chicken Wings', desc: 'Double-fried, smoky chipotle glaze, blue cheese dip', price: 'KES 1,600', tag: 'Spicy' },
-    { name: 'Charcuterie & Cheese Board', desc: 'Assorted cured meats, aged cheeses, pickles, house bread', price: 'KES 2,000' },
-    { name: 'Soup of the Day', desc: 'Chef\'s seasonal soup served with sourdough bread', price: 'KES 700' },
+    { name: 'Charcuterie & Cheese Board', desc: 'Assorted cured meats, aged cheeses, pickles, house bread', price: 'KES 2,000' }
+
   ],
   'Mains': [
     { name: 'Atlantic Salmon Steak', desc: 'Crispy-skinned salmon on creamed spinach with lemon beurre blanc', price: 'KES 3,500', tag: 'Signature', img: salmon },
-    { name: 'Chicken Schnitzel', desc: 'Crispy beer-battered chicken fried golden, topped with mango aioli and bacon', price: 'KES 1,800', tag: 'Popular' },
-    { name: 'Classic Margherita Pizza', desc: 'Fresh mozzarella, basil leaves and zesty pomodoro sauce on a crispy crust', price: 'KES 1,300', tag: 'Vegetarian' },
-    { name: 'Pork Knuckle (Schweinshaxe)', desc: 'Slow-roasted, crackling skin, dark beer gravy, potato dumplings', price: 'KES 3,200', tag: 'Biergarten Classic' },
-    { name: 'Tomahawk Ribeye', desc: '1 kg dry-aged tomahawk, smoked butter, roasted garlic, house fries — serves two', price: 'KES 8,500' },
-    { name: 'Smoky Baby Back Ribs', desc: '12-hour smoked, dark ale BBQ glaze, coleslaw, corn on the cob', price: 'KES 3,800' },
+    { name: 'Classic Margherita Pizza', desc: 'Fresh mozzarella, basil leaves and zesty pomodoro sauce on a crispy crust', price: 'KES 1,300', tag: 'Vegetarian', img: magarita },
+    { name: 'Chicken Schnitzel', desc: 'Crispy beer-battered chicken fried golden, topped with mango aioli and bacon', price: 'KES 1,800', tag: 'Popular', img: schnitzel }
+
+
   ],
   'Bakery & Desserts': [
     { name: 'Artisan Sourdough Loaf', desc: 'Slow-fermented, baked fresh each morning. Served with whipped butter', price: 'KES 350', tag: 'Daily Bake' },
     { name: 'Butter Croissant', desc: 'Classic laminated pastry, flaky and golden — available from 6 AM', price: 'KES 280' },
-    { name: 'Classic Italian Tiramisu', desc: 'Silky mascarpone, espresso-soaked ladyfingers, fine cocoa dusting', price: 'KES 1,000', tag: 'Crowd Favourite', img: tiramisu },
-    { name: 'Warm Apfelstrudel', desc: 'Cinnamon apple strudel, vanilla bean ice cream, caramel drizzle', price: 'KES 900' },
-    { name: 'Salted Caramel Pretzel Tart', desc: 'Dark chocolate ganache, pretzel crust, candied peanuts', price: 'KES 950' },
-    { name: 'Passion Fruit Panna Cotta', desc: 'Silky panna cotta, tropical coulis, fresh mango, coconut tuile', price: 'KES 850' },
-  ],
+        { name: 'Salted Caramel Pretzel Tart', desc: 'Dark chocolate ganache, pretzel crust, candied peanuts', price: 'KES 950' }
+
+    ],
   'Drinks': [
     { name: 'Kraftory Love Story', desc: 'Captain Morgan, Malibu, orange & pineapple juice — our best-selling signature cocktail', price: 'KES 1,200', tag: 'Signature' },
     { name: 'Espresso Martini', desc: 'Bold coffee, smooth vodka and kahlúa — the perfect starter or closer', price: 'KES 1,100' },
-    { name: 'Tusker Lager', desc: "Kenya's finest premium lager — crisp, refreshing, ice cold", price: 'KES 450', tag: 'Local Favourite' },
-    { name: 'Cappuccino', desc: 'Rich espresso topped with velvety steamed milk foam. From 6 AM daily', price: 'KES 350' },
-    { name: 'Craft Beer (Rotating)', desc: 'Ask your server for today\'s rotating local and international craft tap selection', price: 'From KES 500' },
-    { name: 'Happy Hour Special', desc: 'All beers & cocktails — Monday to Sunday, 5 PM to 7 PM', price: '30% Off', tag: 'Daily Deal' },
-  ],
+        { name: 'Craft Beer (Rotating)', desc: 'Ask your server for today\'s rotating local and international craft tap selection', price: 'From KES 500' }
+
+   ],
 }
 
 const PADEL_CARDS = [
@@ -81,25 +81,54 @@ const EVENTS = [
 ]
 
 const VENUE_SPACES = [
-  { icon: '🌿', name: 'Outdoor Garden', capacity: '60–80 guests', vibe: 'Relaxed & scenic', desc: 'Open-air garden with natural ambiance, perfect for casual gatherings and sundowners.' },
-  { icon: '🍺', name: 'Main Biergarten', capacity: '150–200 guests', vibe: 'Vibrant & social', desc: 'The heart of Kraftory with premium seating. Our most popular event space.' },
-  { icon: '👑', name: 'Private VIP Lounge', capacity: '30–50 guests', vibe: 'Exclusive & intimate', desc: 'Upscale private space with personalised service for elite events and corporate dining.' },
-  { icon: '🤝', name: 'Conference Room', capacity: '20–40 guests', vibe: 'Professional', desc: 'Modern meeting room with AV equipment, premium WiFi and flexible setup options.' },
+  {
+    name: 'Main Garden',
+    capacity: 'Up to 150 guests',
+    vibe: 'Open-air · Lush · Social',
+    desc: 'Perfect for large gatherings and celebrations.',
+    image: maingarden,
+    icon: '',
+  },
+  {
+    name: 'Biergarten Deck',
+    capacity: 'Up to 80 guests',
+    vibe: 'Casual · Vibrant',
+    icon: '',
+    desc: 'Ideal for drinks and relaxed hangouts.',
+    image: outdoor,
+  },
+  {
+    name: 'Padel Arena',
+    capacity: 'Up to 60 guests',
+    vibe: 'Active · Energetic',
+    desc: 'Great for team-building and sporty events.',
+    image: padelarea,
+    icon: '',
+  },
+  {
+    name: 'Indoor Lounge',
+    capacity: 'Up to 40 guests',
+    vibe: 'Cozy · Intimate',
+    desc: 'Perfect for private dinners and meetings.',
+    image: conference,
+    icon: '',
+
+  },
 ]
 
 const GALLERY_IMGS = [
-  { url: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80', alt: 'Biergarten atmosphere', span: 2 },
-  { url: 'https://images.unsplash.com/photo-1559329007-40df8a9345d8?w=600&q=80', alt: 'Craft beer selection' },
-  { url: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80', alt: 'Artisan food' },
-  { url: 'https://images.unsplash.com/photo-1571613316887-6f8d5cbf7ef7?w=600&q=80', alt: 'Padel courts' },
-  { url: 'https://images.unsplash.com/photo-1567521464027-f127ff144326?w=800&q=80', alt: 'Restaurant dining', span: 2 },
-  { url: 'https://images.unsplash.com/photo-1533777324565-a040eb52facd?w=600&q=80', alt: 'Group dining' },
+  { url: entry, alt: 'Biergarten atmosphere', span: 2 },
+  { url: outdoor, alt: 'Craft beer selection' },
+  { url: maingarden, alt: 'Artisan food' },
+  { url: screen, alt: 'Padel courts' },
+  { url: game, alt: 'Restaurant dining', span: 2 }, // reuse for layout balance
+  { url: taps, alt: 'Group dining' },
 ]
 
 const TEAM = [
-  { icon: '👩‍💼', name: 'Sarah Kipchoge', role: 'Founder & CEO', quote: '"Kraftory was built on a dream — that Nairobi deserves a place where great people meet great beer. Welcome to our home."' },
-  { icon: '👨‍🍳', name: 'James Mwangi', role: 'Head Chef', quote: '"Food is my love language. I pour craft into every plate — from the sourdough we bake at dawn to the salmon we plate at sunset."' },
-  { icon: '👩‍💼', name: 'Grace Omondi', role: 'Community Manager', quote: '"My job is to make sure you feel at home the moment you walk through our gates. The energy here is real. You\'re one of us now."' },
+  { icon: '👩‍💼', name: 'Deval Modi', role: 'Director', quote: '"Kraftory was built on a dream — that Nairobi deserves a place where great people meet great beer. Welcome to our home."' },
+  { icon: '👨‍🍳', name: 'Chef Alex', role: 'Head Chef', quote: '"Food is my love language. I pour craft into every plate — from the sourdough we bake at dawn to the salmon we plate at sunset."' },
+  { icon: '👩‍💼', name: 'Cosmas Egwa', role: 'General Manager', quote: '"My job is to make sure you feel at home the moment you walk through our gates. The energy here is real. You\'re one of us now."' },
 ]
 
 // ─────────────────────────────────────────────
@@ -126,6 +155,11 @@ export default function Home() {
 
       {/* ══════════════════ INFO STRIP ══════════════════ */}
       <InfoStrip />
+       <div className="padel-ticker">
+                <div className="padel-ticker__track">
+                  {Array(4).fill('🎾 Kraftory Padel — Play Hard · Dine Well · Come Back ; KES 4,000/hr with complimentary F&B voucher ; Book via Playtomic ; 3 Professional Courts ;').join('')}
+                </div>
+              </div>
 
       {/* ══════════════════ OVERVIEW ══════════════════ */}
       <section id="overview" className="section section--light">
@@ -168,7 +202,7 @@ export default function Home() {
               </div>
               <div className="reveal reveal-delay-2" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <img src={salmon} alt="Atlantic salmon" className="ov-img" />
-                <img src={conference} alt="Conference space" className="ov-img" />
+                <img src={game} alt="Kraftory games" className="ov-img" />
               </div>
             </div>
           </div>
@@ -266,9 +300,7 @@ export default function Home() {
                   {[
                     { name: 'Tusker Lager', style: "Kenya's Finest · Premium Lager", price: 'KES 450' },
                     { name: 'Kraftory Love Story', style: 'Signature Cocktail · Captain Morgan, Malibu, Orange & Pineapple', price: 'KES 1,200' },
-                    { name: 'Espresso Martini', style: 'Cocktail · Vodka, Kahlúa, Bold Espresso', price: 'KES 1,100' },
-                    { name: 'Craft Beer (Rotating)', style: 'Ask for today\'s local & international tap selection', price: 'From KES 500' },
-                    { name: 'Cappuccino', style: 'Rich Espresso · Steamed Milk · From 6 AM', price: 'KES 350' },
+                   { name: 'Cappuccino', style: 'Rich Espresso · Steamed Milk · From 6 AM', price: 'KES 350' },
                   ].map((b, i) => (
                     <li key={i} className="beer-item">
                       <div>
@@ -287,7 +319,7 @@ export default function Home() {
             <div className="beer-images" ref={r5}>
               <div className="reveal reveal-delay-1 beer-mosaic">
                 <img src={taps} alt="Beer taps" className="beer-mosaic__main" />
-                <img src={beer} alt="Craft beer" className="beer-mosaic__secondary" />
+                <img src={cappuccino} alt="Capuccino" className="beer-mosaic__secondary" />
               </div>
             </div>
           </div>
@@ -321,44 +353,59 @@ export default function Home() {
               </div>
             ))}
           </div>
+         
 
           {/* Pricing table */}
-          <div className="padel-pricing" ref={r7}>
-            <div className="reveal">
-              <h3 className="padel-pricing__title">Court Rental Pricing</h3>
-              <div className="padel-pricing__table-wrap">
-                <table className="data-table padel-pricing__table">
-                  <thead>
-                    <tr>
-                      <th>Time Slot</th>
-                      <th>Rate</th>
-                      <th>F&amp;B Voucher Included</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {[
-                      { slot: 'Morning  ·  6 AM – 12 PM', rate: 'KES 4,000 / hr' },
-                      { slot: 'Afternoon  ·  12 PM – 5 PM', rate: 'KES 4,000 / hr' },
-                      { slot: 'Evening  ·  5 PM – 10 PM', rate: 'KES 4,000 / hr' },
-                    ].map((row, i) => (
-                      <tr key={i}>
-                        <td>{row.slot}</td>
-                        <td><strong style={{ color: 'var(--amber)' }}>{row.rate}</strong></td>
-                        <td style={{ color: 'var(--moss)', fontWeight: 600 }}>
-                          KES 1,000 (1 hr)&nbsp;&nbsp;·&nbsp;&nbsp;KES 1,500 (1.5 hr)
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <div className="padel-ticker">
-                <div className="padel-ticker__track">
-                  {Array(4).fill('🎾 Kraftory Padel — Play Hard · Dine Well · Come Back &nbsp;&nbsp;•&nbsp;&nbsp; KES 4,000/hr with complimentary F&B voucher &nbsp;&nbsp;•&nbsp;&nbsp; Book via Playtomic &nbsp;&nbsp;•&nbsp;&nbsp; 3 Professional Courts &nbsp;&nbsp;•&nbsp;&nbsp;').join('')}
-                </div>
-              </div>
-            </div>
-          </div>
+<div className="padel-pricing" ref={r7}>
+  <div className="reveal">
+    <h3 className="padel-pricing__title">Court Rental Pricing</h3>
+
+    <p className="padel-pricing__note">
+      Same rates apply every day · Morning slot (6 AM – 12 PM) is <strong>50% off</strong>
+    </p>
+
+    <div className="padel-pricing__table-wrap">
+      <table className="data-table padel-pricing__table">
+        <thead>
+          <tr>
+            <th>Time Slot</th>
+            <th>Rate</th>
+            <th>F&amp;B Voucher Included</th>
+          </tr>
+        </thead>
+        <tbody>
+          {[
+            { slot: 'Morning · 6 AM – 12 PM', rate: 4000, discount: true },
+            { slot: 'Afternoon · 12 PM – 5 PM', rate: 4000, discount: false },
+            { slot: 'Evening · 5 PM – 10 PM', rate: 4000, discount: false },
+          ].map((row, i) => {
+            const finalRate = row.discount ? row.rate / 2 : row.rate;
+            return (
+              <tr key={i}>
+                <td>{row.slot}</td>
+
+                <td>
+                  <strong style={{ color: 'var(--amber)' }}>
+                    KES {finalRate.toLocaleString()} / hr
+                    {row.discount && (
+                      <span style={{ color: 'var(--green)', marginLeft: '0.5rem', fontWeight: 600 }}>
+                        (50% Off!)
+                      </span>
+                    )}
+                  </strong>
+                </td>
+
+                <td style={{ color: 'var(--moss)', fontWeight: 600 }}>
+                  KES 1,000 (1 hr)&nbsp;&nbsp;·&nbsp;&nbsp;KES 1,500 (1.5 hr)
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
         </div>
       </section>
 
@@ -398,16 +445,24 @@ export default function Home() {
               />
             </div>
             <div className="venue-grid">
-              {VENUE_SPACES.map((v, i) => (
-                <div key={i} className="venue-card">
-                  <div className="venue-card__icon">{v.icon}</div>
-                  <h3 className="venue-card__name">{v.name}</h3>
-                  <p className="venue-card__capacity">{v.capacity}</p>
-                  <p className="venue-card__vibe">{v.vibe}</p>
-                  <p className="venue-card__desc">{v.desc}</p>
-                </div>
-              ))}
-            </div>
+  {VENUE_SPACES.map((v, i) => (
+    <div
+      key={i}
+      className="venue-card"
+      style={{ backgroundImage: `url(${v.image})` }}
+    >
+      <div className="venue-card__overlay" />
+
+      <div className="venue-card__content">
+        <div className="venue-card__icon">{v.icon}</div>
+        <h3 className="venue-card__name">{v.name}</h3>
+        <p className="venue-card__capacity">{v.capacity}</p>
+        <p className="venue-card__vibe">{v.vibe}</p>
+        <p className="venue-card__desc">{v.desc}</p>
+      </div>
+    </div>
+  ))}
+</div>
             <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
               <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-primary btn-lg">
                 Enquire About Venue Hire

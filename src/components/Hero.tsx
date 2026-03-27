@@ -1,24 +1,30 @@
 import { useState, useEffect } from 'react'
 import './Hero.css'
 
+// Import local images
+import slide1 from '../assets/entry.webp'
+import slide2 from '../assets/outdoor.webp'
+import slide3 from '../assets/main garden.webp'
+import slide4 from '../assets/taps.webp'
+
 const SLIDES = [
   {
-    url: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1800&q=85',
+    url: slide1,
     alt: 'Kraftory Biergarten outdoor dining',
-    label: 'Nairobi\'s Premier Biergarten',
+    label: "Nairobi's Premier Biergarten",
   },
   {
-    url: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=1800&q=85',
+    url: slide2,
     alt: 'Craft beer selection at Kraftory',
     label: 'Curated Craft Beer & Cocktails',
   },
   {
-    url: 'https://images.unsplash.com/photo-1574096079513-d8259312b785?w=1800&q=85',
+    url: slide3,
     alt: 'Padel courts at Kraftory',
     label: '3 Professional Padel Courts',
   },
   {
-    url: 'https://images.unsplash.com/photo-1567521464027-f127ff144326?w=1800&q=85',
+    url: slide4,
     alt: 'Artisan food at Kraftory restaurant',
     label: 'Artisan Kitchen & Bakery',
   },
@@ -42,7 +48,10 @@ export default function Hero() {
   const goTo = (idx: number) => {
     if (idx === current) return
     setTransitioning(true)
-    setTimeout(() => { setCurrent(idx); setTransitioning(false) }, 600)
+    setTimeout(() => { 
+      setCurrent(idx)
+      setTransitioning(false) 
+    }, 600)
   }
 
   return (
@@ -64,22 +73,28 @@ export default function Hero() {
       {/* Content */}
       <div className="hero__content container">
         <div className="hero__text">
-          <span className="hero__eyebrow">Est. 2025 · Off Red Hill Road, Nairobi</span>
+          <span className="hero__eyebrow">
+            Est. 2025 · Off Red Hill Road, Nairobi
+          </span>
           <h1 className="hero__title">
             A green escape for<br />great food &amp; good times
           </h1>
           <p className="hero__subtitle">{SLIDES[current].label}</p>
+
           <div className="hero__actions">
             <a
               href="https://eatapp.co/reserve/kraftory-biergarten-red-hill-rd-nairobi"
-              target="_blank" rel="noopener noreferrer"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn btn-lg btn-amber"
             >
               Reserve a Table
             </a>
+
             <a
               href="https://playtomic.com/clubs/kraftory-biergarten-padel"
-              target="_blank" rel="noopener noreferrer"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn btn-lg btn-outline-white"
             >
               Book a Padel Court
@@ -101,8 +116,21 @@ export default function Hero() {
       </div>
 
       {/* Arrows */}
-      <button className="hero__arrow hero__arrow--prev" onClick={() => goTo((current - 1 + SLIDES.length) % SLIDES.length)} aria-label="Previous slide">‹</button>
-      <button className="hero__arrow hero__arrow--next" onClick={() => goTo((current + 1) % SLIDES.length)} aria-label="Next slide">›</button>
+      <button
+        className="hero__arrow hero__arrow--prev"
+        onClick={() => goTo((current - 1 + SLIDES.length) % SLIDES.length)}
+        aria-label="Previous slide"
+      >
+        ‹
+      </button>
+
+      <button
+        className="hero__arrow hero__arrow--next"
+        onClick={() => goTo((current + 1) % SLIDES.length)}
+        aria-label="Next slide"
+      >
+        ›
+      </button>
     </section>
   )
 }

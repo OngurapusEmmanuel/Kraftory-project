@@ -84,6 +84,9 @@ export default function Header() {
             <a href="https://eatapp.co/reserve/kraftory-biergarten-red-hill-rd-nairobi" target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-amber">
               Reserve a Table
             </a>
+            <a href="https://kraftory-biergarten.ubuntu.click/menu.html?menuId=d5e8eae0-cc8c-4bd2-9d0d-12fcad432180&title=Kraftory%20Food%20Menu" target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-outline">
+              View Menu
+            </a>
           </div>
 
           {/* Mobile hamburger */}

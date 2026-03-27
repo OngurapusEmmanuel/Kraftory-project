@@ -161,7 +161,7 @@ button { cursor: pointer; font-family: inherit; }
 
 /* ---- REVEAL ANIMATION ---- */
 .reveal {
-  opacity: 0; transform: translateY(28px);
+  opacity: 1; transform: translateY(0);
   transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
 }
 .reveal.in-view { opacity: 1; transform: translateY(0); }
@@ -202,4 +202,75 @@ button { cursor: pointer; font-family: inherit; }
 }
 @media (min-width: 769px) {
   .hide-desktop { display: none !important; }
+}
+.venue-card {
+  position: relative;
+  height: 320px;
+  border-radius: 16px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  transition: transform 0.3s ease;
+  
+}
+
+.venue-card:hover {
+  transform: translateY(-6px) scale(1.02);
+}
+
+.venue-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.75),
+    rgba(0, 0, 0, 0.2)
+  );
+}
+
+.venue-card__content {
+  position: relative;
+  color: #fff;
+  padding: 1.5rem;
+  z-index: 2;
+}
+
+.venue-card__icon {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.venue-card__name {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.venue-card__capacity,
+.venue-card__vibe,
+.venue-card__desc {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+.venue-card__content {
+  position: relative;
+  color: #ffffff; /* main text color */
+  padding: 1.5rem;
+  z-index: 2;
+}
+
+/* Ensure all text inherits white */
+.venue-card__name,
+.venue-card__capacity,
+.venue-card__vibe,
+.venue-card__desc {
+  color: #ffffff;
+}
+
+/* Optional: improve readability */
+.venue-card__capacity,
+.venue-card__vibe,
+.venue-card__desc {
+  opacity: 0.9;
 }
