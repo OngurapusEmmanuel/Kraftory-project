@@ -4,19 +4,19 @@ import './Hero.css'
 // Import local images
 import slide1 from '../assets/entry.webp'
 import slide2 from '../assets/outdoor.webp'
-import slide3 from '../assets/main garden.webp'
+import slide3 from '../assets/padel/padel.jpg'
 import slide4 from '../assets/taps.webp'
 
 const SLIDES = [
   {
     url: slide1,
-    alt: 'Kraftory Biergarten outdoor dining',
+    alt: 'Kraftory Biergarten entrance with lush greenery',
     label: "Nairobi's Premier Biergarten",
   },
   {
     url: slide2,
-    alt: 'Craft beer selection at Kraftory',
-    label: 'Curated Craft Beer & Cocktails',
+    alt: 'Kraftory Biergarten outdoor seating area with greenery',
+    label: 'Kraftory Biergarten: A Green Oasis in Nairobi',
   },
   {
     url: slide3,
@@ -25,8 +25,8 @@ const SLIDES = [
   },
   {
     url: slide4,
-    alt: 'Artisan food at Kraftory restaurant',
-    label: 'Artisan Kitchen & Bakery',
+    alt: 'Craft beer taps at Kraftory',
+    label: 'Curated Craft Beer & Cocktails',
   },
 ]
 

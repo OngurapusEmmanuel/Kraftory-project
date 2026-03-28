@@ -126,9 +126,9 @@ const GALLERY_IMGS = [
 ]
 
 const TEAM = [
-  { icon: '👩‍💼', name: 'Deval Modi', role: 'Director', quote: '"Kraftory was built on a dream — that Nairobi deserves a place where great people meet great beer. Welcome to our home."' },
+  { icon: '👩‍💼', name: 'Mr. Deval Modi', role: 'Director', quote: '"Kraftory was built on a dream — that Nairobi deserves a place where great people meet great beer. Welcome to our home."' },
   { icon: '👨‍🍳', name: 'Chef Alex', role: 'Head Chef', quote: '"Food is my love language. I pour craft into every plate — from the sourdough we bake at dawn to the salmon we plate at sunset."' },
-  { icon: '👩‍💼', name: 'Cosmas Egwa', role: 'General Manager', quote: '"My job is to make sure you feel at home the moment you walk through our gates. The energy here is real. You\'re one of us now."' },
+  { icon: '👩‍💼', name: 'Mr. Cosmas Egwa', role: 'General Manager', quote: '"My job is to make sure you feel at home the moment you walk through our gates. The energy here is real. You\'re one of us now."' },
 ]
 
 // ─────────────────────────────────────────────
