@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import LinkModal from './LinkModal'
 import logo from '../assets/logo1.png'
 import './Header.css'
 
@@ -16,6 +17,10 @@ export default function Header() {
   const [activeSection, setActiveSection] = useState('overview')
   const [mobileOpen, setMobileOpen] = useState(false)
   const [sectionNavStuck, setSectionNavStuck] = useState(false)
+
+  const [modal, setModal] = useState<{ url: string; title: string } | null>(null)
+  const openModal = (url: string, title: string) => setModal({ url, title })
+  const closeModal = () => setModal(null)
 
   // Scroll spy
   useEffect(() => {
@@ -81,12 +86,12 @@ export default function Header() {
             <a href="https://wa.me/254113555777" target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-outline">
               WhatsApp Us
             </a>
-            <a href="https://eatapp.co/reserve/kraftory-biergarten-red-hill-rd-nairobi" target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-amber">
+            <button onClick={() => openModal('https://eatapp.co/reserve/kraftory-biergarten-red-hill-rd-nairobi', 'Reserve a Table')} className="btn btn-sm btn-amber">
               Reserve a Table
-            </a>
-            <a href="https://kraftory-biergarten.ubuntu.click/menu.html?menuId=d5e8eae0-cc8c-4bd2-9d0d-12fcad432180&title=Kraftory%20Food%20Menu" target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-outline">
+            </button>
+            <button onClick={() => openModal('https://kraftory-biergarten.ubuntu.click/menu.html?menuId=d5e8eae0-cc8c-4bd2-9d0d-12fcad432180&title=Kraftory%20Food%20Menu', 'Kraftory Food Menu')} className="btn btn-sm btn-outline">
               View Menu
-            </a>
+            </button>
           </div>
 
           {/* Mobile hamburger */}
@@ -127,19 +132,18 @@ export default function Header() {
                 {s.label}
               </button>
             ))}
-            <a href="https://eatapp.co/reserve/kraftory-biergarten-red-hill-rd-nairobi"
-               target="_blank" rel="noopener noreferrer"
+            <button onClick={() => openModal('https://eatapp.co/reserve/kraftory-biergarten-red-hill-rd-nairobi', 'Reserve a Table')}
                className="btn btn-amber" style={{ marginTop: '1rem', textAlign: 'center', justifyContent: 'center' }}>
               Reserve a Table
-            </a>
-            <a href="https://playtomic.com/clubs/kraftory-biergarten-padel"
-               target="_blank" rel="noopener noreferrer"
+            </button>
+            <button onClick={() => openModal('https://playtomic.com/clubs/kraftory-biergarten-padel', 'Book a Padel Court')}
                className="btn btn-outline" style={{ textAlign: 'center', justifyContent: 'center' }}>
               Book a Court
-            </a>
+            </button>
           </nav>
         </div>
       )}
+      <LinkModal url={modal ? modal.url : null} title={modal ? modal.title : undefined} onClose={closeModal} />
     </>
   )
 }

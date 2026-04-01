@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import Hero from '../components/Hero'
+import LinkModal from '../components/LinkModal'
 import InfoStrip from '../components/InfoStrip'
 import SectionHeader from '../components/SectionHeader'
 import salmon from '../assets/salmon.jpg'
@@ -137,11 +138,18 @@ export default function Home() {
   const [formState, setFormState] = useState({ name: '', email: '', phone: '', date: '', time: '7:00 PM', guests: '2', type: 'Restaurant Table', notes: '' })
   const [submitted, setSubmitted] = useState(false)
 
+  const [modal, setModal] = useState<{ url: string; title: string } | null>(null)
+  const openModal = (url: string, title: string) => setModal({ url, title })
+  const closeModal = () => setModal(null)
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setSubmitted(true)
     setTimeout(() => { setSubmitted(false); setFormState({ name: '', email: '', phone: '', date: '', time: '7:00 PM', guests: '2', type: 'Restaurant Table', notes: '' }) }, 4000)
+  
+    
   }
+
 
   const r1 = useReveal(); const r2 = useReveal(); const r3 = useReveal()
   const r4 = useReveal(); const r5 = useReveal(); const r6 = useReveal()
@@ -241,9 +249,14 @@ export default function Home() {
               />
             </div>
             <div className="reveal reveal-delay-2 menu-external-links">
-              <a href="https://kraftory-biergarten.ubuntu.click/menu.html?menuId=d5e8eae0-cc8c-4bd2-9d0d-12fcad432180&title=Kraftory%20Food%20Menu" target="_blank" rel="noopener noreferrer" className="btn btn-outline btn-sm">Full Food Menu ↗</a>
-              <a href="https://kraftory-biergarten.ubuntu.click/menu.html?menuId=b0a494f4-7f0f-42dc-8e09-3dcee962fd6d&title=Kraftory%20Drinks%20Menu" target="_blank" rel="noopener noreferrer" className="btn btn-outline btn-sm">Full Drinks Menu ↗</a>
-            </div>
+             {/* Menu external links */}
+<button onClick={() => openModal('https://kraftory-biergarten.ubuntu.click/menu.html?menuId=d5e8eae0-cc8c-4bd2-9d0d-12fcad432180&title=Kraftory%20Food%20Menu', 'Kraftory Food Menu')} className="btn btn-outline btn-sm">
+  Full Food Menu ↗
+</button>
+<button onClick={() => openModal('https://kraftory-biergarten.ubuntu.click/menu.html?menuId=b0a494f4-7f0f-42dc-8e09-3dcee962fd6d&title=Kraftory%20Drinks%20Menu', 'Kraftory Drinks Menu')} className="btn btn-outline btn-sm">
+  Full Drinks Menu ↗
+</button>
+          </div>
           </div>
 
           {/* Tabs */}
@@ -311,9 +324,10 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
-                <a href="https://kraftory-biergarten.ubuntu.click/menu.html?menuId=b0a494f4-7f0f-42dc-8e09-3dcee962fd6d&title=Kraftory%20Drinks%20Menu" target="_blank" rel="noopener noreferrer" className="btn btn-outline-white" style={{ marginTop: '2rem', display: 'inline-flex' }}>
-                  View Full Drinks Menu ↗
-                </a>
+                {/* Beer section */}
+<button onClick={() => openModal('https://kraftory-biergarten.ubuntu.click/menu.html?menuId=b0a494f4-7f0f-42dc-8e09-3dcee962fd6d&title=Kraftory%20Drinks%20Menu', 'Kraftory Drinks Menu')} className="btn btn-outline-white" style={{ marginTop: '2rem', display: 'inline-flex' }}>
+  View Full Drinks Menu ↗
+</button>
               </div>
             </div>
             <div className="beer-images" ref={r5}>
@@ -338,8 +352,10 @@ export default function Home() {
               />
             </div>
             <div className="reveal reveal-delay-2">
-              <a href="https://playtomic.com/clubs/kraftory-biergarten-padel" target="_blank" rel="noopener noreferrer" className="btn btn-amber">Book a Court →</a>
-            </div>
+{/* Padel section */}
+<button onClick={() => openModal('https://playtomic.com/clubs/kraftory-biergarten-padel', 'Book a Padel Court')} className="btn btn-amber">
+  Book a Court →
+</button>            </div>
           </div>
 
           <div className="padel-cards">
@@ -355,7 +371,7 @@ export default function Home() {
           </div>
          
 
-          {/* Pricing table */}
+      {/* Pricing table */}
 <div className="padel-pricing" ref={r7}>
   <div className="reveal">
     <h3 className="padel-pricing__title">Court Rental Pricing</h3>
@@ -376,8 +392,7 @@ export default function Home() {
         <tbody>
           {[
             { slot: 'Morning · 6 AM – 12 PM', rate: 4000, discount: true },
-            { slot: 'Afternoon · 12 PM – 5 PM', rate: 4000, discount: false },
-            { slot: 'Evening · 5 PM – 10 PM', rate: 4000, discount: false },
+            { slot: 'Afternoon & Evening · 12 PM – 10 PM', rate: 4000, discount: false },
           ].map((row, i) => {
             const finalRate = row.discount ? row.rate / 2 : row.rate;
             return (
@@ -396,7 +411,9 @@ export default function Home() {
                 </td>
 
                 <td style={{ color: 'var(--moss)', fontWeight: 600 }}>
-                  KES 1,000 (1 hr)&nbsp;&nbsp;·&nbsp;&nbsp;KES 1,500 (1.5 hr)
+                  {!row.discount
+                    ? 'KES 1,000 (1 hr)\u00a0\u00a0·\u00a0\u00a0KES 1,500 (1.5 hr)'
+                    : '—'}
                 </td>
               </tr>
             );
@@ -511,134 +528,136 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════════════════ CONTACT & RESERVATION ══════════════════ */}
-      <section id="contact" className="section section--light">
-        <div className="container">
-          <div className="contact-grid" ref={r9}>
-            {/* LEFT — info + map */}
-            <div className="contact-info reveal">
-              <SectionHeader label="Find Us" title="Contact &amp; <em>Reservations</em>" />
+     {/* ══════════════════ CONTACT & RESERVATION ══════════════════ */}
+<section id="contact" className="section section--light">
+  <div className="container">
+    <div className="contact-grid" ref={r9}>
+      {/* LEFT — info + map */}
+      <div className="contact-info reveal">
+        <SectionHeader label="Find Us" title="Contact &amp; <em>Reservations</em>" />
 
-              <div className="contact-details">
-                <div className="contact-detail">
-                  <span className="contact-detail__icon">📍</span>
-                  <div>
-                    <strong>Address</strong>
-                    <p>Off Red Hill Road, Next to Commission for University Education, Nairobi, Kenya</p>
-                  </div>
-                </div>
-                <div className="contact-detail">
-                  <span className="contact-detail__icon">📞</span>
-                  <div>
-                    <strong>Phone</strong>
-                    <p><a href="tel:+254113555777">+254 113 555 777</a></p>
-                  </div>
-                </div>
-                <div className="contact-detail">
-                  <span className="contact-detail__icon">✉️</span>
-                  <div>
-                    <strong>Email</strong>
-                    <p><a href="mailto:info@kraftorybiergarten.com">info@kraftorybiergarten.com</a></p>
-                  </div>
-                </div>
-                <div className="contact-detail">
-                  <span className="contact-detail__icon">🕐</span>
-                  <div>
-                    <strong>Opening Hours</strong>
-                    <p>Monday – Sunday · 6 AM – 11 PM</p>
-                    <p style={{ color: 'var(--amber)', fontWeight: 500 }}>Happy Hour · 5–7 PM Daily (30% Off)</p>
-                  </div>
-                </div>
-                <div className="contact-detail">
-                  <span className="contact-detail__icon">💬</span>
-                  <div>
-                    <strong>WhatsApp</strong>
-                    <p><a href="https://wa.me/254113555777" target="_blank" rel="noopener noreferrer">Message us on WhatsApp →</a></p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Quick booking buttons */}
-              <div className="contact-quick-book">
-                <a href="https://eatapp.co/reserve/kraftory-biergarten-red-hill-rd-nairobi" target="_blank" rel="noopener noreferrer" className="btn btn-amber">🍽️ Reserve a Table</a>
-                <a href="https://playtomic.com/clubs/kraftory-biergarten-padel" target="_blank" rel="noopener noreferrer" className="btn btn-primary">🎾 Book a Court</a>
-              </div>
-
-              {/* Map */}
-              <div className="contact-map">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3282.5365001510845!2d36.79517577395949!3d-1.2258177987624916!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f172fa40abbaf%3A0xe34087d17f1fea13!2sKraftory%20Biergarten!5e1!3m2!1sen!2ske!4v1754983508785!5m2!1sen!2ske"
-                  width="100%" height="280"
-                  style={{ border: 'none', display: 'block', borderRadius: 'var(--radius)' }}
-                  allowFullScreen loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Kraftory Biergarten on Google Maps"
-                />
-              </div>
+        <div className="contact-details">
+          <div className="contact-detail">
+            <span className="contact-detail__icon">📍</span>
+            <div>
+              <strong>Address</strong>
+              <p>Off Red Hill Road, Next to Commission for University Education, Nairobi, Kenya</p>
             </div>
-
-            {/* RIGHT — reservation form */}
-            <div className="contact-form-wrap reveal reveal-delay-2">
-              <div className="contact-form-card">
-                <h3 className="contact-form-card__title">Make a Reservation</h3>
-                <p className="contact-form-card__sub">Table · Padel Court · Private Event</p>
-
-                {submitted ? (
-                  <div className="form-success">
-                    <div className="form-success__icon">✅</div>
-                    <h4>Booking Received!</h4>
-                    <p>Thank you — we'll be in touch within 24 hours to confirm your reservation.</p>
-                  </div>
-                ) : (
-                  <form className="res-form" onSubmit={handleSubmit}>
-                    <div className="res-form__row">
-                      <label className="res-form__label">Full Name *
-                        <input className="res-form__input" type="text" placeholder="Jane Kamau" value={formState.name} onChange={e => setFormState({ ...formState, name: e.target.value })} required />
-                      </label>
-                      <label className="res-form__label">Phone
-                        <input className="res-form__input" type="tel" placeholder="+254 7XX XXX XXX" value={formState.phone} onChange={e => setFormState({ ...formState, phone: e.target.value })} />
-                      </label>
-                    </div>
-                    <label className="res-form__label">Email Address *
-                      <input className="res-form__input" type="email" placeholder="jane@email.com" value={formState.email} onChange={e => setFormState({ ...formState, email: e.target.value })} required />
-                    </label>
-                    <div className="res-form__row">
-                      <label className="res-form__label">Date *
-                        <input className="res-form__input" type="date" value={formState.date} onChange={e => setFormState({ ...formState, date: e.target.value })} required min={new Date().toISOString().split('T')[0]} />
-                      </label>
-                      <label className="res-form__label">Time
-                        <select className="res-form__input" value={formState.time} onChange={e => setFormState({ ...formState, time: e.target.value })}>
-                          {['6:00 AM','7:00 AM','8:00 AM','12:00 PM','1:00 PM','5:00 PM (Happy Hour)','6:00 PM','7:00 PM','8:00 PM','9:00 PM'].map(t => <option key={t}>{t}</option>)}
-                        </select>
-                      </label>
-                    </div>
-                    <div className="res-form__row">
-                      <label className="res-form__label">Guests
-                        <select className="res-form__input" value={formState.guests} onChange={e => setFormState({ ...formState, guests: e.target.value })}>
-                          {['1–2','3–4','5–8','9–15','16+ (Group)'].map(g => <option key={g}>{g}</option>)}
-                        </select>
-                      </label>
-                      <label className="res-form__label">Booking Type
-                        <select className="res-form__input" value={formState.type} onChange={e => setFormState({ ...formState, type: e.target.value })}>
-                          {['Restaurant Table','Beer Garden Table','Padel Court','Private VIP Lounge','Corporate / Event'].map(t => <option key={t}>{t}</option>)}
-                        </select>
-                      </label>
-                    </div>
-                    <label className="res-form__label">Special Requests
-                      <textarea className="res-form__input res-form__textarea" rows={3} placeholder="Dietary requirements, special occasions, or any other notes..." value={formState.notes} onChange={e => setFormState({ ...formState, notes: e.target.value })} />
-                    </label>
-                    <button type="submit" className="btn btn-amber" style={{ width: '100%', justifyContent: 'center', padding: '1rem' }}>
-                      Confirm Reservation
-                    </button>
-                    <p className="res-form__note">We'll confirm your booking within 24 hours · <a href="tel:+254113555777">+254 113 555 777</a></p>
-                  </form>
-                )}
-              </div>
+          </div>
+          <div className="contact-detail">
+            <span className="contact-detail__icon">📞</span>
+            <div>
+              <strong>Phone</strong>
+              <p><a href="tel:+254113555777">+254 113 555 777</a></p>
+            </div>
+          </div>
+          <div className="contact-detail">
+            <span className="contact-detail__icon">✉️</span>
+            <div>
+              <strong>Email</strong>
+              <p><a href="mailto:info@kraftorybiergarten.com">info@kraftorybiergarten.com</a></p>
+            </div>
+          </div>
+          <div className="contact-detail">
+            <span className="contact-detail__icon">🕐</span>
+            <div>
+              <strong>Opening Hours</strong>
+              <p>Monday – Sunday · 6 AM – 11 PM</p>
+              <p style={{ color: 'var(--amber)', fontWeight: 500 }}>Happy Hour · 5–7 PM Daily (30% Off)</p>
+            </div>
+          </div>
+          <div className="contact-detail">
+            <span className="contact-detail__icon">💬</span>
+            <div>
+              <strong>WhatsApp</strong>
+              <p><a href="https://wa.me/254113555777" target="_blank" rel="noopener noreferrer">Message us on WhatsApp →</a></p>
             </div>
           </div>
         </div>
-      </section>
 
+        {/* Quick booking buttons */}
+        <div className="contact-quick-book">
+          {/* Contact quick-book */}
+<button onClick={() => openModal('https://eatapp.co/reserve/kraftory-biergarten-red-hill-rd-nairobi', 'Reserve a Table')} className="btn btn-amber">
+  🍽️ Reserve a Table
+</button>
+<button onClick={() => openModal('https://playtomic.com/clubs/kraftory-biergarten-padel', 'Book a Padel Court')} className="btn btn-primary">
+  🎾 Book a Court
+</button>
+        </div>
+
+        {/* Map */}
+        <div className="contact-map">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3282.5365001510845!2d36.79517577395949!3d-1.2258177987624916!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f172fa40abbaf%3A0xe34087d17f1fea13!2sKraftory%20Biergarten!5e1!3m2!1sen!2ske!4v1754983508785!5m2!1sen!2ske"
+            width="100%" height="280"
+            style={{ border: 'none', display: 'block', borderRadius: 'var(--radius)' }}
+            allowFullScreen loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="Kraftory Biergarten on Google Maps"
+          />
+        </div>
+      </div>
+
+      {/* RIGHT — contact form */}
+      <div className="contact-form-wrap reveal reveal-delay-2">
+        <div className="contact-form-card">
+          <h3 className="contact-form-card__title">Get in Touch</h3>
+          <p className="contact-form-card__sub">Inquiries · Feedback · Events · Partnerships</p>
+
+          {submitted ? (
+            <div className="form-success">
+              <div className="form-success__icon">✅</div>
+              <h4>Message Sent!</h4>
+              <p>Thank you for reaching out — we'll get back to you within 24 hours.</p>
+            </div>
+          ) : (
+            <form className="res-form" onSubmit={handleSubmit}>
+              <div className="res-form__row">
+                <label className="res-form__label">Full Name *
+                  <input className="res-form__input" type="text" placeholder="Jane Kamau" value={formState.name} onChange={e => setFormState({ ...formState, name: e.target.value })} required />
+                </label>
+                <label className="res-form__label">Phone
+                  <input className="res-form__input" type="tel" placeholder="+254 7XX XXX XXX" value={formState.phone} onChange={e => setFormState({ ...formState, phone: e.target.value })} />
+                </label>
+              </div>
+
+              <label className="res-form__label">Email Address *
+                <input className="res-form__input" type="email" placeholder="jane@email.com" value={formState.email} onChange={e => setFormState({ ...formState, email: e.target.value })} required />
+              </label>
+
+              <label className="res-form__label">Subject *
+                <select className="res-form__input" value={formState.type} onChange={e => setFormState({ ...formState, type: e.target.value })} required>
+                  <option value="" disabled>Select a topic…</option>
+                  <option value="General Inquiry">General Inquiry</option>
+                  <option value="Feedback">Feedback</option>
+                  <option value="Events & Catering">Events &amp; Catering</option>
+                  <option value="Partnership">Partnership</option>
+                  <option value="Other">Other</option>
+                </select>
+              </label>
+
+              <label className="res-form__label">Message *
+                <textarea className="res-form__input res-form__textarea" rows={5} placeholder="Tell us how we can help…" value={formState.notes} onChange={e => setFormState({ ...formState, notes: e.target.value })} required />
+              </label>
+
+              <button type="submit" className="btn btn-amber" style={{ width: '100%', justifyContent: 'center', padding: '1rem' }}>
+                Send Message
+              </button>
+              <p className="res-form__note">We respond within 24 hours · <a href="tel:+254113555777">+254 113 555 777</a></p>
+            </form>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+      <LinkModal
+        url={modal ? modal.url : null}
+        title={modal ? modal.title : undefined}
+        onClose={closeModal}
+      />
     </div>
   )
 }
