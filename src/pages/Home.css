@@ -230,6 +230,7 @@
 @media (max-width: 900px) { .padel-cards { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 600px) { .padel-cards { grid-template-columns: 1fr; } }
 
+
 /* ── EVENTS ── */
 .events-grid {
   display: grid; grid-template-columns: repeat(3, 1fr);
@@ -242,19 +243,51 @@
   background: var(--white); padding: 2rem;
   display: flex; gap: 1rem;
   transition: background 0.2s;
+  /* reset button styles */
+  border: none; text-align: left; cursor: default; font-family: inherit; width: 100%;
 }
-.event-card:hover { background: var(--off-white); }
+.event-card--clickable {
+  cursor: pointer;
+  position: relative;
+}
+.event-card--clickable::after {
+  content: '';
+  position: absolute; inset: 0;
+  border: 2px solid transparent;
+  border-radius: inherit;
+  transition: border-color 0.2s;
+  pointer-events: none;
+}
+.event-card--clickable:hover { background: var(--off-white); }
+.event-card--clickable:hover::after { border-color: var(--event-accent, var(--amber)); }
+.event-card--clickable:focus-visible {
+  outline: 2px solid var(--event-accent, var(--amber));
+  outline-offset: 2px;
+}
 .event-card__icon { font-size: 1.8rem; flex-shrink: 0; }
 .event-card__when {
   display: block; font-size: 0.68rem; font-weight: 600;
   letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--amber); margin-bottom: 0.4rem;
+  color: var(--event-accent, var(--amber)); margin-bottom: 0.4rem;
 }
 .event-card__title {
   font-family: var(--font-display); font-size: 1rem; font-weight: 600;
   color: var(--forest); margin-bottom: 0.4rem;
 }
-.event-card__desc { font-size: 0.82rem; color: var(--muted-text); line-height: 1.6; }
+.event-card__desc { font-size: 0.82rem; color: var(--muted-text); line-height: 1.6; margin-bottom: 0.75rem; }
+.event-card__more {
+  font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--event-accent, var(--amber));
+  opacity: 0;
+  transition: opacity 0.2s, transform 0.2s;
+  display: block;
+  transform: translateX(-4px);
+}
+.event-card--clickable:hover .event-card__more {
+  opacity: 1;
+  transform: translateX(0);
+}
 
 /* ── VENUE ── */
 .venue-section { border-top: 1px solid var(--border); padding-top: 4rem; }
