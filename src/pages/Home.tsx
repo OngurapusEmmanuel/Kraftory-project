@@ -254,12 +254,6 @@ const GALLERY_IMGS = [
   { url: taps, alt: 'Group dining' },
 ]
 
-const TEAM = [
-  { icon: '👩‍💼', name: 'Mr. Deval Modi', role: 'Director', quote: '"Kraftory was built on a dream — that Nairobi deserves a place where great people meet great beer. Welcome to our home."' },
-  { icon: '👨‍🍳', name: 'Chef Alex', role: 'Head Chef', quote: '"Food is my love language. I pour craft into every plate — from the sourdough we bake at dawn to the salmon we plate at sunset."' },
-  { icon: '👩‍💼', name: 'Mr. Cosmas Egwa', role: 'General Manager', quote: '"My job is to make sure you feel at home the moment you walk through our gates. The energy here is real. You\'re one of us now."' },
-]
-
 // ─────────────────────────────────────────────
 export default function Home() {
   const [activeTab, setActiveTab] = useState('Starters')
@@ -292,7 +286,7 @@ export default function Home() {
       <Hero />
 
       {/* ══════════════════ INFO STRIP ══════════════════ */}
-      <InfoStrip />
+      {/* <InfoStrip /> */}
        <div className="padel-ticker">
                 <div className="padel-ticker__track">
                   {Array(4).fill('🎾 Kraftory Padel — Play Hard · Dine Well · Come Back ; KES 4,000/hr with complimentary F&B voucher ; Book via Playtomic ; 3 Professional Courts ;').join('')}
@@ -388,36 +382,6 @@ export default function Home() {
 </button>
           </div>
           </div>
-
-          {/* Tabs */}
-          <div className="menu-tabs" role="tablist">
-            {MENU_TABS.map(tab => (
-              <button
-                key={tab}
-                role="tab"
-                aria-selected={activeTab === tab}
-                className={`menu-tab ${activeTab === tab ? 'menu-tab--active' : ''}`}
-                onClick={() => setActiveTab(tab)}
-              >{tab}</button>
-            ))}
-          </div>
-
-          {/* Menu grid */}
-          <div className="menu-grid" role="tabpanel">
-            {MENU_ITEMS[activeTab].map((item, i) => (
-              <div key={i} className="menu-card">
-                {item.img && <div className="menu-card__img" style={{ backgroundImage: `url(${item.img})` }} />}
-                <div className="menu-card__body">
-                  <div className="menu-card__top">
-                    <h3 className="menu-card__name">{item.name}</h3>
-                    {item.tag && <span className="badge">{item.tag}</span>}
-                  </div>
-                  <p className="menu-card__desc">{item.desc}</p>
-                  <p className="menu-card__price">{item.price}</p>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -439,21 +403,6 @@ export default function Home() {
                     <span className="beer-happy-hour__label">Happy Hour · Every Day · 30% Off All Beers & Cocktails</span>
                   </div>
                 </div>
-                <ul className="beer-list">
-                  {[
-                    { name: 'Tusker Lager', style: "Kenya's Finest · Premium Lager", price: 'KES 450' },
-                    { name: 'Kraftory Love Story', style: 'Signature Cocktail · Captain Morgan, Malibu, Orange & Pineapple', price: 'KES 1,200' },
-                   { name: 'Cappuccino', style: 'Rich Espresso · Steamed Milk · From 6 AM', price: 'KES 350' },
-                  ].map((b, i) => (
-                    <li key={i} className="beer-item">
-                      <div>
-                        <span className="beer-item__name">{b.name}</span>
-                        <span className="beer-item__style">{b.style}</span>
-                      </div>
-                      <span className="beer-item__price">{b.price}</span>
-                    </li>
-                  ))}
-                </ul>
                 {/* Beer section */}
 <button onClick={() => openModal('https://kraftory-biergarten.ubuntu.click/menu.html?menuId=b0a494f4-7f0f-42dc-8e09-3dcee962fd6d&title=Kraftory%20Drinks%20Menu', 'Kraftory Drinks Menu')} className="btn btn-outline-white" style={{ marginTop: '2rem', display: 'inline-flex' }}>
   View Full Drinks Menu ↗
@@ -628,24 +577,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════════════════ TEAM ══════════════════ */}
-      <section className="section section--light">
-        <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-            <SectionHeader label="The People" title="Meet Our <em>Team</em>" center />
-          </div>
-          <div className="team-grid">
-            {TEAM.map((m, i) => (
-              <div key={i} className="team-card">
-                <div className="team-card__avatar">{m.icon}</div>
-                <h3 className="team-card__name">{m.name}</h3>
-                <p className="team-card__role">{m.role}</p>
-                <p className="team-card__quote">{m.quote}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      
 
       {/* ══════════════════ GALLERY ══════════════════ */}
       <section id="gallery" className="section section--white gallery-section">
