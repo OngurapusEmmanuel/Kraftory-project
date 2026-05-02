@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import './Hero.css'
+import LinkModal from '../components/LinkModal'
+
 
 // Import local images
 import slide1 from '../assets/entry.webp'
@@ -34,6 +36,10 @@ export default function Hero() {
   const [current, setCurrent] = useState(0)
   const [transitioning, setTransitioning] = useState(false)
 
+  const [modal, setModal] = useState<{ url: string; title: string } | null>(null)
+    const openModal = (url: string, title: string) => setModal({ url, title })
+    const closeModal = () => setModal(null)
+  
   useEffect(() => {
     const timer = setInterval(() => {
       setTransitioning(true)
@@ -55,6 +61,7 @@ export default function Hero() {
   }
 
   return (
+    <>
     <section className="hero" aria-label="Hero">
       {/* Slides */}
       {SLIDES.map((slide, i) => (
@@ -82,23 +89,13 @@ export default function Hero() {
           <p className="hero__subtitle">{SLIDES[current].label}</p>
 
           <div className="hero__actions">
-            <a
-              href="https://eatapp.co/reserve/kraftory-biergarten-red-hill-rd-nairobi"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-lg btn-amber"
-            >
+            <button onClick={() => openModal('https://eatapp.co/reserve/kraftory-biergarten-red-hill-rd-nairobi', 'Reserve a Table')} className="btn btn-sm btn-amber">
               Reserve a Table
-            </a>
+            </button>
 
-            <a
-              href="https://playtomic.com/clubs/kraftory-biergarten-padel"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-lg btn-outline-white"
-            >
-              Book a Padel Court
-            </a>
+            <button onClick={() => openModal('https://playtomic.com/clubs/kraftory-biergarten-padel', 'Book a Padel Court')} className="btn btn-amber">
+  Book a Padel Court →
+</button>
           </div>
         </div>
       </div>
@@ -132,5 +129,12 @@ export default function Hero() {
         ›
       </button>
     </section>
+    <LinkModal
+      url={modal ? modal.url : null}
+      title={modal ? modal.title : undefined}
+      onClose={closeModal}
+    />
+    </>
   )
+
 }

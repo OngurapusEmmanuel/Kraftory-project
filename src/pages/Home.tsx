@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, FC } from 'react'
 import Hero from '../components/Hero'
 import LinkModal from '../components/LinkModal'
 import InfoStrip from '../components/InfoStrip'
@@ -254,6 +254,134 @@ const GALLERY_IMGS = [
   { url: taps, alt: 'Group dining' },
 ]
 
+interface GoogleReview {
+  author_name: string
+  rating: number
+  text: string
+}
+
+const STATIC_GOOGLE_REVIEWS: GoogleReview[] = [
+  { author_name: 'Customer', rating: 5, text: 'Amazing vibe, great music, and the padel courts make it a unique experience.' },
+  { author_name: 'Guest', rating: 4.5, text: 'Perfect place for weekend hangouts. Food, drinks, and atmosphere are all on point.' },
+  { author_name: 'Visitor', rating: 4, text: 'Loved the outdoor setting and the service was friendly and fast.' },
+  { author_name: 'Patron', rating: 5, text: 'One of the best spots in Nairobi for group events and social gatherings.' },
+  { author_name: 'Diner', rating: 4.2, text: 'Great food and cocktails, plus plenty of space and parking.' },
+  { author_name: 'Customer', rating: 4, text: 'Nice ambience and good variety on the menu. Worth visiting again.' },
+  { author_name: 'Guest', rating: 5, text: 'The combination of sports and dining is brilliant. Highly recommend.' },
+  { author_name: 'Visitor', rating: 4.3, text: 'Relaxed beer garden feel with excellent service and clean facilities.' },
+  { author_name: 'Patron', rating: 4, text: 'Good spot for sundowners with friends. Chill and enjoyable.' },
+  { author_name: 'Diner', rating: 4.6, text: 'Great pizza, great drinks, and a lively environment.' },
+]
+
+const AVATAR_PALETTE = ['#1a472a', '#c8780a', '#3d6b45', '#8b6914', '#2d5a27']
+
+function StarRating({ rating }: { rating: number }) {
+  return (
+    <div className="review-stars">
+      {[1, 2, 3, 4, 5].map(i => (
+        <span
+          key={i}
+          className={`review-star${rating >= i ? ' review-star--full' : rating >= i - 0.5 ? ' review-star--half' : ' review-star--empty'}`}
+        >
+          ★
+        </span>
+      ))}
+    </div>
+  )
+}
+
+const GoogleReviewCard: FC<{ review: GoogleReview; colorIndex: number }> = ({ review, colorIndex }) => {
+  const initials = review.author_name
+    .split(' ')
+    .map((p) => p[0] ?? '')
+    .join('')
+    .slice(0, 2)
+    .toUpperCase()
+
+  return (
+    <article className="review-card">
+      <div className="review-card__quote">"</div>
+      <p className="review-card__text">{review.text}</p>
+      <div className="review-card__footer">
+        <div
+          className="review-card__avatar"
+          style={{ background: AVATAR_PALETTE[colorIndex % AVATAR_PALETTE.length] }}
+        >
+          {initials}
+        </div>
+        <div>
+          <strong className="review-card__name">{review.author_name}</strong>
+          <StarRating rating={review.rating} />
+        </div>
+      </div>
+    </article>
+  )
+}
+
+const REVIEW_PAGE_SIZE = 3
+const REVIEW_GROUPS = (() => {
+  const groups: GoogleReview[][] = []
+  const reviews = STATIC_GOOGLE_REVIEWS.slice(0, 9)
+  for (let i = 0; i < reviews.length; i += REVIEW_PAGE_SIZE) {
+    groups.push(reviews.slice(i, i + REVIEW_PAGE_SIZE))
+  }
+  return groups
+})()
+
+const GoogleReviewsSection: FC = () => {
+  const [current, setCurrent] = useState(0)
+
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      setCurrent((c) => (c + 1) % REVIEW_GROUPS.length)
+    }, 6000)
+    return () => window.clearInterval(id)
+  }, [])
+
+  return (
+    <section className="section section--forest reviews-section">
+      <div className="container">
+        <div className="reviews-header">
+          <SectionHeader
+            label="Guest Reviews"
+            title="What guests <em>say about us</em>"
+            subtitle="Voices from our restaurant, beer garden &amp; padel community."
+            light
+          />
+        </div>
+        <div className="reviews-carousel">
+          <div
+            className="reviews-track"
+            style={{ transform: `translateX(-${current * 100}%)` }}
+          >
+            {REVIEW_GROUPS.map((group, gi) => (
+              <div className="reviews-slide" key={gi}>
+                {group.map((review, ri) => (
+                  <GoogleReviewCard
+                    key={`${review.author_name}-${gi}-${ri}`}
+                    review={review}
+                    colorIndex={gi * REVIEW_PAGE_SIZE + ri}
+                  />
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="reviews-dots">
+          {REVIEW_GROUPS.map((_, i) => (
+            <button
+              key={i}
+              className={`reviews-dot${i === current ? ' reviews-dot--active' : ''}`}
+              onClick={() => setCurrent(i)}
+              aria-label={`Go to review page ${i + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 // ─────────────────────────────────────────────
 export default function Home() {
   const [activeTab, setActiveTab] = useState('Starters')
@@ -323,8 +451,9 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="overview-actions">
-                  <a href="https://eatapp.co/reserve/kraftory-biergarten-red-hill-rd-nairobi" target="_blank" rel="noopener noreferrer" className="btn btn-amber btn-lg">Reserve a Table</a>
-                  <button onClick={() => document.getElementById('padel')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-outline btn-lg">Book Padel Court</button>
+<button onClick={() => openModal('https://eatapp.co/reserve/kraftory-biergarten-red-hill-rd-nairobi', 'Reserve a Table')} className="btn btn-sm btn-amber">
+              Reserve a Table
+            </button>                  <button onClick={() => document.getElementById('padel')?.scrollIntoView({ behavior: 'smooth' })} className="btn btn-outline btn-lg">Book Padel Court</button>
                 </div>
               </div>
             </div>
@@ -364,23 +493,37 @@ export default function Home() {
       {/* ══════════════════ DINING & MENU ══════════════════ */}
       <section id="dining" className="section section--white">
         <div className="container">
-          <div className="section-header-row" ref={r3}>
-            <div className="reveal">
-              <SectionHeader
-                label="Restaurant & Bakery"
-                title="The <em>Kitchen</em>"
-                subtitle="Chef-driven plates crafted from premium ingredients. From our artisan bakery at dawn to our full dinner service — every dish is made with care."
-              />
+          <div className="dining-layout">
+            <div className="dining-text" ref={r3}>
+              <div className="reveal">
+                <SectionHeader
+                  label="Restaurant & Bakery"
+                  title="The <em>Kitchen</em>"
+                  subtitle="Chef-driven plates crafted from premium ingredients. From our artisan bakery at dawn to our full dinner service — every dish is made with care."
+                />
+                <div className="dining-highlight">
+                  <div className="dining-highlight__inner">
+                    <span className="dining-highlight__time">6 AM – 11 PM</span>
+                    <span className="dining-highlight__label">Open Daily · Artisan Bakery · Weekend Brunch · Happy Hour 5–7 PM</span>
+                  </div>
+                </div>
+                <div className="menu-external-links" style={{ marginTop: '2rem' }}>
+                  <button onClick={() => openModal('https://kraftory-biergarten.ubuntu.click/menu.html?menuId=d5e8eae0-cc8c-4bd2-9d0d-12fcad432180&title=Kraftory%20Food%20Menu', 'Kraftory Food Menu')} className="btn btn-outline btn-sm">
+                    Full Food Menu ↗
+                  </button>
+                  {/* <button onClick={() => openModal('https://kraftory-biergarten.ubuntu.click/menu.html?menuId=b0a494f4-7f0f-42dc-8e09-3dcee962fd6d&title=Kraftory%20Drinks%20Menu', 'Kraftory Drinks Menu')} className="btn btn-outline btn-sm">
+                    Full Drinks Menu ↗
+                  </button> */}
+                </div>
+              </div>
             </div>
-            <div className="reveal reveal-delay-2 menu-external-links">
-             {/* Menu external links */}
-<button onClick={() => openModal('https://kraftory-biergarten.ubuntu.click/menu.html?menuId=d5e8eae0-cc8c-4bd2-9d0d-12fcad432180&title=Kraftory%20Food%20Menu', 'Kraftory Food Menu')} className="btn btn-outline btn-sm">
-  Full Food Menu ↗
-</button>
-<button onClick={() => openModal('https://kraftory-biergarten.ubuntu.click/menu.html?menuId=b0a494f4-7f0f-42dc-8e09-3dcee962fd6d&title=Kraftory%20Drinks%20Menu', 'Kraftory Drinks Menu')} className="btn btn-outline btn-sm">
-  Full Drinks Menu ↗
-</button>
-          </div>
+            <div className="dining-images">
+              <div className="dining-mosaic">
+                <img src={salmon} alt="Atlantic salmon" className="dining-mosaic__main" />
+                <img src={magarita} alt="Margherita pizza" className="dining-mosaic__top" />
+                <img src={schnitzel} alt="Chicken schnitzel" className="dining-mosaic__bottom" />
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -456,47 +599,45 @@ export default function Home() {
     <h3 className="padel-pricing__title">Court Rental Pricing</h3>
 
     <p className="padel-pricing__note">
-      Same rates apply every day · Morning slot (6 AM – 12 PM) is <strong>50% off</strong>
+      Mon–Thu mornings (8 AM – 3 PM) are <strong>50% off</strong> · Full rates apply from 3 PM onwards and all weekend · F&amp;B voucher included on full-rate bookings
     </p>
 
     <div className="padel-pricing__table-wrap">
       <table className="data-table padel-pricing__table">
         <thead>
           <tr>
+            <th>Days</th>
             <th>Time Slot</th>
-            <th>Rate</th>
-            <th>F&amp;B Voucher Included</th>
+            <th>1 hr</th>
+            <th>1.5 hr</th>
+            <th>F&amp;B Voucher</th>
           </tr>
         </thead>
         <tbody>
-          {[
-            { slot: 'Morning · 6 AM – 12 PM', rate: 4000, discount: true },
-            { slot: 'Afternoon & Evening · 12 PM – 10 PM', rate: 4000, discount: false },
-          ].map((row, i) => {
-            const finalRate = row.discount ? row.rate / 2 : row.rate;
-            return (
-              <tr key={i}>
-                <td>{row.slot}</td>
-
-                <td>
-                  <strong style={{ color: 'var(--amber)' }}>
-                    KES {finalRate.toLocaleString()} / hr
-                    {row.discount && (
-                      <span style={{ color: 'var(--green)', marginLeft: '0.5rem', fontWeight: 600 }}>
-                        (50% Off!)
-                      </span>
-                    )}
-                  </strong>
-                </td>
-
-                <td style={{ color: 'var(--moss)', fontWeight: 600 }}>
-                  {!row.discount
-                    ? 'KES 1,000 (1 hr)\u00a0\u00a0·\u00a0\u00a0KES 1,500 (1.5 hr)'
-                    : '—'}
-                </td>
-              </tr>
-            );
-          })}
+          <tr className="padel-pricing__row--discount">
+            <td>Mon – Thu</td>
+            <td>8 AM – 3 PM</td>
+            <td>
+              <strong style={{ color: 'var(--amber)' }}>KES 2,000</strong>
+              <span className="padel-pricing__badge">50% off</span>
+            </td>
+            <td><strong style={{ color: 'var(--amber)' }}>KES 3,000</strong></td>
+            <td style={{ color: 'var(--muted-text)' }}>—</td>
+          </tr>
+          <tr>
+            <td>Mon – Thu</td>
+            <td>3 PM – 11 PM</td>
+            <td><strong style={{ color: 'var(--amber)' }}>KES 4,000</strong></td>
+            <td><strong style={{ color: 'var(--amber)' }}>KES 6,000</strong></td>
+            <td style={{ color: 'var(--moss)', fontWeight: 600 }}>KES 1,000  ·  KES 1,500</td>
+          </tr>
+          <tr>
+            <td>Fri – Sun</td>
+            <td>All Day</td>
+            <td><strong style={{ color: 'var(--amber)' }}>KES 4,000</strong></td>
+            <td><strong style={{ color: 'var(--amber)' }}>KES 6,000</strong></td>
+            <td style={{ color: 'var(--moss)', fontWeight: 600 }}>KES 1,000  ·  KES 1,500</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -580,6 +721,7 @@ export default function Home() {
       
 
       {/* ══════════════════ GALLERY ══════════════════ */}
+      <GoogleReviewsSection />
       <section id="gallery" className="section section--white gallery-section">
         <div className="container">
           <div style={{ marginBottom: '2.5rem' }}>
