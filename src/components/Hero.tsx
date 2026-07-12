@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import './Hero.css'
 import LinkModal from '../components/LinkModal'
+import { BOOKING_LINKS } from '../constants'
 
 
 // Import local images
@@ -89,11 +90,11 @@ export default function Hero() {
           <p className="hero__subtitle">{SLIDES[current].label}</p>
 
           <div className="hero__actions">
-            <button onClick={() => openModal('https://eatapp.co/reserve/kraftory-biergarten-red-hill-rd-nairobi', 'Reserve a Table')} className="btn btn-sm btn-amber">
+            <button onClick={() => openModal(BOOKING_LINKS.reserveTable, 'Reserve a Table')} className="btn btn-sm btn-amber">
               Reserve a Table
             </button>
 
-            <button onClick={() => openModal('https://playtomic.com/clubs/kraftory-biergarten-padel', 'Book a Padel Court')} className="btn btn-amber">
+            <button onClick={() => openModal(BOOKING_LINKS.bookPadel, 'Book a Padel Court')} className="btn btn-amber">
   Book a Padel Court →
 </button>
           </div>

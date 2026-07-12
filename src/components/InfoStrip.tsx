@@ -1,3 +1,4 @@
+import { CONTACT, BOOKING_LINKS } from '../constants'
 import './InfoStrip.css'
 
 export default function InfoStrip() {
@@ -8,7 +9,7 @@ export default function InfoStrip() {
           <span className="info-strip__icon">📞</span>
           <div>
             <span className="info-strip__label">Phone</span>
-            <a href="tel:+254113555777" className="info-strip__value">+254 113 555 777</a>
+            <a href={CONTACT.phoneHref} className="info-strip__value">{CONTACT.phone}</a>
           </div>
         </div>
         <div className="info-strip__divider" />
@@ -16,8 +17,8 @@ export default function InfoStrip() {
           <span className="info-strip__icon">✉️</span>
           <div>
             <span className="info-strip__label">Email</span>
-            <a href="mailto:info@kraftorybiergarten.com" className="info-strip__value">
-              info@kraftorybiergarten.com
+            <a href={CONTACT.emailHref} className="info-strip__value">
+              {CONTACT.email}
             </a>
           </div>
         </div>
@@ -26,7 +27,7 @@ export default function InfoStrip() {
           <span className="info-strip__icon">📍</span>
           <div>
             <span className="info-strip__label">Location</span>
-            <span className="info-strip__value">Off Red Hill Road, Nairobi</span>
+            <span className="info-strip__value">{CONTACT.addressShort}</span>
           </div>
         </div>
         <div className="info-strip__divider" />
@@ -48,7 +49,7 @@ export default function InfoStrip() {
         <div className="info-strip__divider hide-mobile" />
         <div className="info-strip__actions hide-mobile">
           <a
-            href="https://eatapp.co/reserve/kraftory-biergarten-red-hill-rd-nairobi"
+            href={BOOKING_LINKS.reserveTable}
             target="_blank" rel="noopener noreferrer"
             className="btn btn-sm btn-amber"
           >

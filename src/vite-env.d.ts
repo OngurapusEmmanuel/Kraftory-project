@@ -1,5 +1,14 @@
 /// <reference types="vite/client" />
 
+interface ImportMetaEnv {
+  readonly VITE_FORMSPREE_ENDPOINT?: string
+  readonly VITE_DEV_TUNNEL_HOST?: string
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv
+}
+
 declare module '*.jpg' {
   const content: string
   export default content

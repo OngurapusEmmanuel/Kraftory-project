@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import LinkModal from './LinkModal'
 import logo from '../assets/logo1.png'
+import { CONTACT, SOCIALS, BOOKING_LINKS } from '../constants'
 import './Header.css'
 
 const SECTIONS = [
@@ -48,23 +49,23 @@ export default function Header() {
       <div className="top-bar">
         <div className="container top-bar__inner">
           <div className="top-bar__left">
-            <a href="tel:+254113555777" className="top-bar__item">
-              <span className="top-bar__icon">📞</span>+254 113 555 777
+            <a href={CONTACT.phoneHref} className="top-bar__item">
+              <span className="top-bar__icon">📞</span>{CONTACT.phone}
             </a>
-            <a href="mailto:info@kraftorybiergarten.com" className="top-bar__item">
-              <span className="top-bar__icon">✉️</span>info@kraftorybiergarten.com
+            <a href={CONTACT.emailHref} className="top-bar__item">
+              <span className="top-bar__icon">✉️</span>{CONTACT.email}
             </a>
             <span className="top-bar__item">
-              <span className="top-bar__icon">📍</span>Off Red Hill Road, Nairobi
+              <span className="top-bar__icon">📍</span>{CONTACT.addressShort}
             </span>
           </div>
           <div className="top-bar__right">
             <span className="top-bar__item">
               <span className="top-bar__icon">🕐</span>Open Daily · 6 AM – 11 PM
             </span>
-            <a href="https://www.instagram.com/kraftorybiergarten/" target="_blank" rel="noopener noreferrer" className="top-bar__social">IG</a>
-            <a href="https://twitter.com/kraftorybier" target="_blank" rel="noopener noreferrer" className="top-bar__social">𝕏</a>
-            <a href="https://wa.me/254113555777" target="_blank" rel="noopener noreferrer" className="top-bar__social">WA</a>
+            <a href={SOCIALS.instagram} target="_blank" rel="noopener noreferrer" className="top-bar__social">IG</a>
+            <a href={SOCIALS.twitter} target="_blank" rel="noopener noreferrer" className="top-bar__social">𝕏</a>
+            <a href={CONTACT.whatsappHref} target="_blank" rel="noopener noreferrer" className="top-bar__social">WA</a>
           </div>
         </div>
       </div>
@@ -83,13 +84,13 @@ export default function Header() {
 
           {/* Desktop CTAs */}
           <div className="main-header__ctas hide-mobile">
-            <a href="https://wa.me/254113555777" target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-outline">
+            <a href={CONTACT.whatsappHref} target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-outline">
               WhatsApp Us
             </a>
-            <button onClick={() => openModal('https://eatapp.co/reserve/kraftory-biergarten-red-hill-rd-nairobi', 'Reserve a Table')} className="btn btn-sm btn-amber">
+            <button onClick={() => openModal(BOOKING_LINKS.reserveTable, 'Reserve a Table')} className="btn btn-sm btn-amber">
               Reserve a Table
             </button>
-            <button onClick={() => openModal('https://kraftory-biergarten.ubuntu.click/menu.html?menuId=d5e8eae0-cc8c-4bd2-9d0d-12fcad432180&title=Kraftory%20Food%20Menu', 'Kraftory Food Menu')} className="btn btn-sm btn-outline">
+            <button onClick={() => openModal(BOOKING_LINKS.foodMenu, 'Kraftory Food Menu')} className="btn btn-sm btn-outline">
               View Menu
             </button>
           </div>
@@ -132,11 +133,11 @@ export default function Header() {
                 {s.label}
               </button>
             ))}
-            <button onClick={() => openModal('https://eatapp.co/reserve/kraftory-biergarten-red-hill-rd-nairobi', 'Reserve a Table')}
+            <button onClick={() => openModal(BOOKING_LINKS.reserveTable, 'Reserve a Table')}
                className="btn btn-amber" style={{ marginTop: '1rem', textAlign: 'center', justifyContent: 'center' }}>
               Reserve a Table
             </button>
-            <button onClick={() => openModal('https://playtomic.com/clubs/kraftory-biergarten-padel', 'Book a Padel Court')}
+            <button onClick={() => openModal(BOOKING_LINKS.bookPadel, 'Book a Padel Court')}
                className="btn btn-outline" style={{ textAlign: 'center', justifyContent: 'center' }}>
               Book a Court
             </button>

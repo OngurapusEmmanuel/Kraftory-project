@@ -1,3 +1,4 @@
+import { CONTACT, SOCIALS, BOOKING_LINKS } from '../constants'
 import './Footer.css'
 
 export default function Footer() {
@@ -11,9 +12,9 @@ export default function Footer() {
             <p className="footer__tagline">Craft Beer · Great Food · Good Times</p>
             <p className="footer__address">Off Red Hill Road<br />Next to Commission for University Education<br />Nairobi, Kenya</p>
             <div className="footer__socials">
-              <a href="https://www.instagram.com/kraftorybiergarten/" target="_blank" rel="noopener noreferrer" className="footer__social-btn" aria-label="Instagram">IG</a>
-              <a href="https://twitter.com/kraftorybier" target="_blank" rel="noopener noreferrer" className="footer__social-btn" aria-label="Twitter/X">𝕏</a>
-              <a href="https://wa.me/254113555777" target="_blank" rel="noopener noreferrer" className="footer__social-btn" aria-label="WhatsApp">WA</a>
+              <a href={SOCIALS.instagram} target="_blank" rel="noopener noreferrer" className="footer__social-btn" aria-label="Instagram">IG</a>
+              <a href={SOCIALS.twitter} target="_blank" rel="noopener noreferrer" className="footer__social-btn" aria-label="Twitter/X">𝕏</a>
+              <a href={CONTACT.whatsappHref} target="_blank" rel="noopener noreferrer" className="footer__social-btn" aria-label="WhatsApp">WA</a>
             </div>
           </div>
 
@@ -34,27 +35,27 @@ export default function Footer() {
             <h4 className="footer__col-title">Book</h4>
             <ul className="footer__links">
               <li>
-                <a href="https://eatapp.co/reserve/kraftory-biergarten-red-hill-rd-nairobi" target="_blank" rel="noopener noreferrer" className="footer__link-btn">
+                <a href={BOOKING_LINKS.reserveTable} target="_blank" rel="noopener noreferrer" className="footer__link-btn">
                   Reserve a Table →
                 </a>
               </li>
               <li>
-                <a href="https://playtomic.com/clubs/kraftory-biergarten-padel" target="_blank" rel="noopener noreferrer" className="footer__link-btn">
+                <a href={BOOKING_LINKS.bookPadel} target="_blank" rel="noopener noreferrer" className="footer__link-btn">
                   Book a Padel Court →
                 </a>
               </li>
               <li>
-                <a href="https://kraftory-biergarten.ubuntu.click/menu.html?menuId=d5e8eae0-cc8c-4bd2-9d0d-12fcad432180&title=Kraftory%20Food%20Menu" target="_blank" rel="noopener noreferrer" className="footer__link-btn">
+                <a href={BOOKING_LINKS.foodMenu} target="_blank" rel="noopener noreferrer" className="footer__link-btn">
                   View Food Menu →
                 </a>
               </li>
               <li>
-                <a href="https://kraftory-biergarten.ubuntu.click/menu.html?menuId=b0a494f4-7f0f-42dc-8e09-3dcee962fd6d&title=Kraftory%20Drinks%20Menu" target="_blank" rel="noopener noreferrer" className="footer__link-btn">
+                <a href={BOOKING_LINKS.drinksMenu} target="_blank" rel="noopener noreferrer" className="footer__link-btn">
                   View Drinks Menu →
                 </a>
               </li>
               <li>
-                <a href="https://wa.me/254113555777" target="_blank" rel="noopener noreferrer" className="footer__link-btn">
+                <a href={CONTACT.whatsappHref} target="_blank" rel="noopener noreferrer" className="footer__link-btn">
                   WhatsApp Us →
                 </a>
               </li>
@@ -66,11 +67,11 @@ export default function Footer() {
             <ul className="footer__links footer__contact-list">
               <li>
                 <span className="footer__contact-icon">📞</span>
-                <a href="tel:+254113555777" className="footer__link-btn">+254 113 555 777</a>
+                <a href={CONTACT.phoneHref} className="footer__link-btn">{CONTACT.phone}</a>
               </li>
               <li>
                 <span className="footer__contact-icon">✉️</span>
-                <a href="mailto:info@kraftorybiergarten.com" className="footer__link-btn">info@kraftorybiergarten.com</a>
+                <a href={CONTACT.emailHref} className="footer__link-btn">{CONTACT.email}</a>
               </li>
               <li>
                 <span className="footer__contact-icon">🕐</span>
